@@ -1,0 +1,6 @@
+.form-elem-container {
+  margin-bottom: 10px;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}

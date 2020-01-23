@@ -1,24 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import inflection from "inflection";
+
+import CreateWordForm, { secret } from "./CreateWordForm";
+
+import "./App.css";
+
+// {
+//   word: '',
+//   singular: '',
+//   plural: ''
+// }
+
+// how to remove a word: wordElement === word
 
 function App() {
+  const [words, setWords] = useState([]);
+
+  const addWord = (word) => {
+    setWords([
+      ...words,
+      {
+        word,
+        singular: inflection.singularize(word),
+        plural: inflection.pluralize(word),
+      },
+    ]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ width: "80%" }} className="center">
+      <CreateWordForm addWord={addWord} />
+
+      <div className="words-container">
+        {words.map((word, i) => {
+          return (
+            <div key={i} style={{ margin: "auto 3%" }}>
+              <p>singular: {word.singular}</p>
+              <p>plural: {word.plural}</p>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
